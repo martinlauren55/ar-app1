@@ -2,7 +2,7 @@
 
 App with Augmented reality
 
-Open app is live at https://martinlauren55.github.io/ar-app1/
+Open app is live at https://martinlauren55.github.io/web-ar/
 
 
 <br/>
