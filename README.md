@@ -1,4 +1,4 @@
-# ar-app1
+# Web-AR
 
 App with Augmented reality
 
