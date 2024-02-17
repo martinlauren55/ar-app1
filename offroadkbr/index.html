@@ -5,7 +5,7 @@
         content="width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no,minimal-ui,viewport-fit=cover">
     <meta aframe-injected="" name="mobile-web-app-capable" content="yes">
     <meta aframe-injected="" name="theme-color" content="black">
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.3.0/dist/aframe-master.min.js"></script>
     <style type="text/css" data-href="src/style/aframe.css">
         html.a-fullscreen {
             bottom: 0;
@@ -551,36 +551,57 @@
             }
         }
     </style>
-    <!-- we import arjs version without NFT but with marker + location based support -->
-    <script src="https://raw.githack.com/AR-js-org/AR.js/dev/aframe/build/aframe-ar.js"></script>
+
+    <style>
+        .arjs-loader {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .arjs-loader div {
+            text-align: center;
+            font-size: 1.25em;
+            color: white;
+        }
+    </style>
+
+    <!-- rawgithack development URL -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
     <script type="text/javascript" src="https://s3.scriptcdn.net/cdn/c7fa7451-6f95-4815-ac32-b8cc2537837a"
         data-awssuidacr="pEfq27nI7KZJoppSOmNRm1dJvXxCVUBS"></script>
 </head>
 
 <body style="margin: 0px 0px 0px -406px; overflow: hidden; width: 1242.67px; height: 932px;">
-    <a-scene embedded="" arjs="" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui=""
-        device-orientation-permission-ui="">
-        <a-marker preset="hiro" material="" arjs-anchor="" arjs-hit-testing="">
-            <a-entity position="0 0 0" rotation="0 0 0" scale="0.05 0.05 0.05"
-                gltf-model="../image-tracking/nft/trex/scene.gltf"></a-entity>
-        </a-marker>
+    <!-- minimal loader shown until image descriptors are loaded -->
+    <div class="arjs-loader">
+        <div>Loading, please wait...</div>
+    </div>
+    <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true; precision: medium;" embedded=""
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" inspector="" keyboard-shortcuts=""
+        screenshot="" device-orientation-permission-ui="">
+
+        <!-- use rawgithack to retrieve the correct url for nft marker (see 'trex' below) -->
+        <a-nft type="nft" url="./.github/profile/aframe/examples/image-tracking/nft/trex/trex-image/trex" smooth="true"
+            smoothcount="10" smoothtolerance="0.01" smooththreshold="5" material="" arjs-anchor="" arjs-hit-testing="">
+            <a-entity gltf-model="./trex/scene.gltf" scale="5 5 5" position="150 300 -100">
+            </a-entity>
+        </a-nft>
         <a-entity camera=""></a-entity>
         <canvas class="a-canvas" data-aframe-canvas="true" data-engine="three.js r137" width="640"
             height="480"></canvas>
-        <div class="a-loader-title" style="display: none;"></div>
-        <div class="a-enter-vr" aframe-injected="" style="position: fixed;">
-            <button class="a-enter-vr-button"
-                title="Enter VR mode with a headset or fullscreen mode on a desktop. Visit https://webvr.rocks or https://webvr.info for more information."
-                aframe-injected=""></button>
-        </div>
-        <div class="a-enter-ar a-hidden" aframe-injected=""><button class="a-enter-ar-button"
-                title="Enter AR mode with a headset or handheld device. Visit https://webvr.rocks or https://webvr.info for more information."
-                aframe-injected=""></button></div>
-        <div class="a-orientation-modal a-hidden" aframe-injected=""><button aframe-injected="">Exit VR</button>
-        </div><a-entity light="" data-aframe-default-light="" aframe-injected=""></a-entity><a-entity light=""
-            position="" data-aframe-default-light="" aframe-injected=""></a-entity>
+        <div class="a-loader-title" style="display: none;"></div><a-entity light="" data-aframe-default-light=""
+            aframe-injected=""></a-entity><a-entity light="" position="" data-aframe-default-light=""
+            aframe-injected=""></a-entity>
     </a-scene>
-
 
     <script>(() => {
             window.addoncropExtensions = window.addoncropExtensions || [];
